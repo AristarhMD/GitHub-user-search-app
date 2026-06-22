@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="en" class="">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="./assets/favicon-32x32.png"
+    />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap"
+      rel="stylesheet"
+    />
+
+    <title>GitHub user search app</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <style type="text/tailwindcss">
+      @theme {
+        /* Font */
+        --font-sans: "Space Mono", monospace;
+        /* Colors */
+        --color-neutral-900: #141d2f;
+        --color-neutral-800: #1e2a47;
+        --color-neutral-700: #2b3442;
+        --color-neutral-500: #4b6a9b;
+        --color-neutral-300: #697c9a;
+        --color-neutral-200: #90a4d4;
+        --color-neutral-100: #f6f8ff;
+        --color-neutral-0: #ffffff;
+        --color-blue-500: #0079ff;
+        --color-blue-300: #60abff;
+        --color-red-500: #f74646;
+        --color-general-bg: #f6f8ff; /*--color-neutral-100*/
+        --color-company-logo: #141d2f; /*--color-neutral-900*/
+        --color-mode-toggler: #4b6a9b; /*--color-neutral-500*/
+        --color-search-bg: #ffffff; /*--color-neutral-0*/
+        --color-search-placeholder: #4b6a9b; /*--color-neutral-500*/
+        --color-search-text: #2b3442; /*--color-neutral-700*/
+        --color-tag: #0079ff; /*--color-blue-500*/
+        --color-join: #4b6a9b; /*--color-neutral-500*/
+        --color-user-info: #0079ff; /*--color-blue-500*/
+
+        /* Shadows */
+        --shadow-box: 0 16px 30px -10px #4660bb33;
+      }
+
+      html.dark {
+        --color-general-bg: #141d2f; /*--color-neutral-900*/
+        --color-company-logo: #ffffff; /*--color-neutral-0*/
+        --color-mode-toggler: #90a4d4; /*--color-neutral-200*/
+        --color-search-bg: #1e2a47; /*--color-neutral-800*/
+        --color-search-placeholder: #ffffffb3; /*--color-neutral-800*/
+        --color-search-text: #ffffff; /*--color-neutral-0*/
+        --color-tag: #60abff; /*--color-blue-300*/
+        --color-join: #ffffff; /*--color-neutral-0*/
+        --color-user-info: #ffffff; /*--color-neutral-0*/
+      }
+
+      @utility preset-1 {
+        @apply font-bold text-[1.625rem] leading-[120%];
+      }
+
+      @utility preset-2 {
+        @apply font-bold text-[1.375rem] leading-[140%];
+      }
+
+      @utility preset-3 {
+        @apply font-normal text-lg leading-[140%];
+      }
+
+      @utility preset-3-m {
+        @apply font-normal text-[0.8125rem] leading-[140%];
+      }
+
+      @utility preset-4 {
+        @apply font-normal text-base leading-[150%];
+      }
+
+      @utility preset-5 {
+        @apply font-bold text-base leading-[150%];
+      }
+
+      @utility preset-6 {
+        @apply font-normal text-[0.9375rem] leading-[150%];
+      }
+
+      @utility preset-7 {
+        @apply font-normal text-[0.8125rem] leading-[150%];
+      }
+
+      @utility preset-8 {
+        @apply font-bold text-[0.8125rem] leading-[140%] tracking-[2.5px];
+      }
+
+      @utility company-name {
+        @apply preset-1 text-company-logo;
+      }
+
+      @utility mode-toggler {
+        @apply uppercase text-mode-toggler preset-8 flex items-center gap-3 md:gap-4 cursor-pointer;
+      }
+
+      @utility input {
+        @apply w-full preset-3-m md:preset-3 placeholder:text-search-placeholder text-search-text;
+      }
+
+      @utility search-btn {
+        @apply cursor-pointer preset-5 py-3 px-5 md:px-6 bg-blue-500 rounded-[10px] text-neutral-0;
+      }
+
+      @utility main-div {
+        @apply py-8 px-6 w-full rounded-[15px] bg-search-bg grid grid-cols-[auto_1fr] gap-x-5 md:gap-x-8 gap-y-6 shadow-box;
+      }
+
+      @utility user-name {
+        @apply flex flex-col preset-1 text-search-text gap-0.5 mb-1 md:mb-0;
+      }
+
+      @utility user-tag {
+        @apply preset-4 text-tag;
+      }
+
+      @utility user-join {
+        @apply preset-6 text-join;
+      }
+
+      @utility user-info-p {
+        @apply flex flex-col preset-7 text-user-info w-full;
+      }
+
+      @utility user-info-span {
+        @apply preset-2 text-search-text;
+      }
+
+      @utility user-data {
+        @apply flex gap-4 items-center text-user-info;
+      }
+    </style>
+
+    <script src="script.js" defer></script>
+  </head>
+  <body class="bg-general-bg">
+    <div
+      class="mx-auto my-8 md:my-10 xl:my-32.5 mx-4 flex flex-col gap-8 md:gap-10 max-w-[91.46%] md:w-[91.66%] md:max-w-[45.625rem]"
+    >
+      <header class="w-full flex justify-between">
+        <h1 class="company-name">devfinder</h1>
+        <button type="button" class="mode-toggler">
+          dark <img src="assets/icon-moon.svg" alt="Icon for mode" />
+        </button>
+      </header>
+
+      <form
+        class="relative py-2 px-3 rounded-2xl w-full bg-search-bg flex items-center shadow-box"
+      >
+        <img
+          src="assets/icon-search.svg"
+          alt="search icon"
+          class="size-5 mr-2 md:mr-5 md:size-6"
+        />
+        <input
+          type="text"
+          class="input"
+          placeholder="Search GitHub username..."
+        />
+        <button type="submit" class="search-btn">Search</button>
+      </form>
+
+      <main class="main-div">
+        <img src="assets/Bitmap.svg" alt="" class="rounded-full" />
+
+        <section class="md:flex md:justify-between md:items-start">
+          <p class="user-git-name user-name">
+            The Octocat<span class="user-git-tag user-tag">@octocat</span>
+          </p>
+          <p class="user-git-join user-join">Joined 25 Jan 2011</p>
+        </section>
+
+        <section class="col-span-2 md:col-start-2 flex flex-col gap-6">
+          <p class="text-join/70 preset-6">This profile has no bio</p>
+          <div
+            class="px-5 py-4 md:px-8 bg-general-bg rounded-[10px] flex flex-col md:flex-row gap-4 md:gap-0 md:justify-around"
+          >
+            <p class="user-info-p">
+              Repos<span class="user-git-repos user-info-span">8</span>
+            </p>
+            <p class="user-info-p">
+              Followers<span class="user-git-followers user-info-span"
+                >3938</span
+              >
+            </p>
+            <p class="user-info-p">
+              Following<span class="user-git-following user-info-span">9</span>
+            </p>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <p class="user-data">
+              <img src="assets/icon-location.svg" alt="Location icon" /><span
+                class="user-git-location"
+                >San Francisco</span
+              >
+            </p>
+            <p class="user-data">
+              <img src="assets/icon-twitter.svg" alt="Twitter icon" /><span
+                class="user-git-twitter"
+                >Not Available</span
+              >
+            </p>
+            <a class="user-git-blog user-data" href=""
+              ><img src="assets/icon-website.svg" alt="Website icon" />
+              https://github.blog</a
+            >
+            <p class="user-git-company user-data">
+              <img src="assets/icon-company.svg" alt="Company icon" /><span
+                >@github</span
+              >
+            </p>
+          </div>
+        </section>
+      </main>
+    </div>
+  </body>
+</html>
