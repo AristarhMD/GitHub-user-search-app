@@ -104,7 +104,23 @@
       }
 
       @utility mode-toggler {
-        @apply uppercase text-mode-toggler preset-8 flex items-center gap-3 md:gap-4 cursor-pointer;
+        @apply uppercase relative text-mode-toggler preset-8 flex items-center gap-3 md:gap-4 cursor-pointer pr-8 md:pr-9;
+      }
+
+      @utility animation {
+        @apply ease-in-out transition-all duration-300;
+      }
+
+      @utility hide-sun {
+        @apply absolute right-0 translate-y-8;
+      }
+
+      @utility hide-moon {
+        @apply absolute right-0 -translate-y-8;
+      }
+
+      @utility show-img {
+        @apply absolute right-0 bottom-1/2 translate-y-1/2;
       }
 
       @utility input {
@@ -150,10 +166,20 @@
     <div
       class="mx-auto my-8 md:my-10 xl:my-32.5 mx-4 flex flex-col gap-8 md:gap-10 max-w-[91.46%] md:w-[91.66%] md:max-w-[45.625rem]"
     >
-      <header class="w-full flex justify-between">
+      <header class="w-full flex justify-between overflow-y-hidden">
         <h1 class="company-name">devfinder</h1>
-        <button type="button" class="mode-toggler">
-          dark <img src="assets/icon-moon.svg" alt="Icon for mode" />
+        <button type="button" class="mode-toggler overflow-y-hidden">
+          <p class="mode-state-text">dark</p>
+          <img
+            class="mode-icon-moon animation show-img"
+            src="assets/icon-moon.svg"
+            alt="Icon for mode"
+          />
+          <img
+            class="mode-icon-sun animation hide-sun"
+            src="assets/icon-sun.svg"
+            alt="Icon for mode"
+          />
         </button>
       </header>
 
