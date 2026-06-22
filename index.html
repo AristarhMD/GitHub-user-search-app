@@ -135,7 +135,7 @@
         @apply py-8 px-6 w-full rounded-[15px] bg-search-bg grid grid-cols-[auto_1fr] gap-x-5 md:gap-x-8 gap-y-6 shadow-box;
       }
 
-      @utility user-name {
+      @utility user-name-div {
         @apply flex flex-col preset-1 text-search-text gap-0.5 mb-1 md:mb-0;
       }
 
@@ -195,22 +195,30 @@
           type="text"
           class="input"
           placeholder="Search GitHub username..."
+          name="input-name"
         />
         <button type="submit" class="search-btn">Search</button>
       </form>
 
       <main class="main-div">
-        <img src="assets/Bitmap.svg" alt="" class="rounded-full" />
+        <img
+          src="assets/Bitmap.svg"
+          alt="user avatar"
+          class="user-git-avatar rounded-full"
+        />
 
         <section class="md:flex md:justify-between md:items-start">
-          <p class="user-git-name user-name">
-            The Octocat<span class="user-git-tag user-tag">@octocat</span>
-          </p>
+          <div class="user-name-div">
+            <p class="user-git-name user-name">The Octocat</p>
+            <p class="user-git-tag user-tag">@octocat</p>
+          </div>
           <p class="user-git-join user-join">Joined 25 Jan 2011</p>
         </section>
 
         <section class="col-span-2 md:col-start-2 flex flex-col gap-6">
-          <p class="text-join/70 preset-6">This profile has no bio</p>
+          <p class="user-git-bio text-join/70 preset-6">
+            This profile has no bio
+          </p>
           <div
             class="px-5 py-4 md:px-8 bg-general-bg rounded-[10px] flex flex-col md:flex-row gap-4 md:gap-0 md:justify-around"
           >
@@ -244,8 +252,9 @@
               ><img src="assets/icon-website.svg" alt="Website icon" />
               https://github.blog</a
             >
-            <p class="user-git-company user-data">
+            <p class="user-data">
               <img src="assets/icon-company.svg" alt="Company icon" /><span
+                class="user-git-company"
                 >@github</span
               >
             </p>
